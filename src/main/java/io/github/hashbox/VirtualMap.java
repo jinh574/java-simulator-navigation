@@ -11,44 +11,119 @@ import java.util.List;
 @Data
 public class VirtualMap {
 	private static VirtualMap instance = new VirtualMap();
-	private List<Vertax> vertaxes;
-	private List<Edge> edges;
-	private int vertaxCount;
+	private List<Vertex> vertexes;
+	private int nVertex;
 
 	private VirtualMap() {
 		System.out.println("Call VirtualMap Constructor.");
-		this.edges = null;
-		this.vertaxCount = 0;
+		makeMap();
 	}
 
 	public static VirtualMap getInstance() {
 		return instance;
 	}
 
-	public void setInfo(List<Edge> edges, List<Vertax> vertaxes) {
-		this.edges = edges;
-		this.vertaxes = vertaxes;
-		this.vertaxCount = vertaxes.size();
+	public void setVertexes(List<Vertex> vertaxes) {
+		this.vertexes = vertaxes;
+		this.nVertex = vertaxes.size();
 	}
 
-	public List<Edge> getConnectedEdge(Vertax source) {
-		List<Edge> result = new ArrayList<Edge>();
-		for (Edge edge : edges) {
-			if(edge.getSource() == source) {
-				result.add(edge);
-			}
+	private void makeMap() {
+		List<Vertex> vertexes = new ArrayList<Vertex>();
+		List<Edge> edges = new ArrayList<Edge>();
+		VirtualMap virtualMap = VirtualMap.getInstance();
+
+		// 맵만들기
+		for(int i = 0; i <= 9; i++) {
+			vertexes.add(new Vertex(i + ""));
 		}
 
-		return result;
-	}
+		nVertex = vertexes.size();
 
-	public Vertax findVertax(int id) {
-		return vertaxes.get(id);
-	}
+		// 0기준
+		vertexes.get(0).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(1), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(2), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(4), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
 
-	public void printEdges() {
-		for (Edge edge : edges) {
-			System.out.println(edge);
-		}
+		// 1기준
+		vertexes.get(1).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(0), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(3), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(4), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(5), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(6), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 2기준
+		vertexes.get(2).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(0), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(4), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(7), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 3기준
+		vertexes.get(3).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(1), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(5), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 4기준
+		vertexes.get(4).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(0), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(1), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(2), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(5), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(6), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 5기준
+		vertexes.get(5).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(1), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(3), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(4), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(8), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 6기준
+		vertexes.get(6).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(1), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(2), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(7), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(8), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 7기준
+		vertexes.get(7).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(2), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(6), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		// 8기준
+		vertexes.get(8).setAdjacencies(
+				new Edge[]{
+						new Edge(vertexes.get(5), (double)(Math.random()*1000) % 500 + 300),
+						new Edge(vertexes.get(6), (double)(Math.random()*1000) % 500 + 300)
+				}
+		);
+
+		setVertexes(vertexes);
 	}
 }

@@ -6,7 +6,7 @@ package io.github.hashbox;
 public class ClientCar extends Car {
 	private String driver;
 
-	public ClientCar(String driver, Vertax departure) {
+	public ClientCar(String driver, Vertex departure) {
 		super(departure);
 		this.driver = driver;
 	}

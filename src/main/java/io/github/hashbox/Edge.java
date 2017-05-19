@@ -6,32 +6,16 @@ import lombok.Data;
  * Created by js on 2017. 5. 19..
  */
 @Data
-public class Edge {
-	private Vertax source;
-	private Vertax destination;
-	private int weight;
-	private int currentCarCount;
-	private int predictCarCount;
+class Edge {
+	private final Vertex target;
+	private double weight;
+	private int nCurrentCar;
+	private int nPredictCar;
 
-	public Edge(Vertax source, Vertax destination, int weight) {
-		this.source = source;
-		this.destination = destination;
-		this.weight = weight;
-	}
-
-	public int getPredictWeight() {
-		// TODO 차량 대수에 따른 가중치 계산 후 리턴하도록 구현
-		return weight;
-	}
-
-	@Override
-	public String toString() {
-		return "Edge{" +
-				"source=" + source.getName() +
-				", destination=" + destination.getName() +
-				", weight=" + weight +
-				", currentCarCount=" + currentCarCount +
-				", predictCarCount=" + predictCarCount +
-				'}';
+	public Edge(Vertex argTarget, double argWeight) {
+		this.target = argTarget;
+		this.weight = argWeight;
+		this.nCurrentCar = 0;
+		this.nPredictCar = 0;
 	}
 }
