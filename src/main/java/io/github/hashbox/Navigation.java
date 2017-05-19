@@ -1,77 +1,44 @@
 package io.github.hashbox;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
  * Created by js on 2017. 5. 19..
  */
 public class Navigation {
-	public static final int INF = Integer.MAX_VALUE;
+	public static void computePaths(Vertex source) {
+		source.setMinDistance(0.);
+		PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+		vertexQueue.add(source);
 
-	public static void findRoute(Car car) {
-		boolean[] visited;
-		int[] distance;
+		while (!vertexQueue.isEmpty()) {
+			Vertex u = vertexQueue.poll();
 
-		VirtualMap virtualMap = VirtualMap.getInstance();
-		int vertaxCount = virtualMap.getVertaxCount();
+			// Visit each edge exiting u
+			for (Edge e : u.getAdjacencies()) {
+				Vertex v = e.getTarget();
+				double weight = e.getWeight();
+				double distanceThroughU = u.getMinDistance() + weight;
+				if (distanceThroughU < v.getMinDistance()) {
+					vertexQueue.remove(v);
 
-
-		distance = new int[vertaxCount];
-		visited = new boolean[vertaxCount];
-		for (int i = 0; i < vertaxCount; i++) {
-			distance[i] = INF;
-			visited[i] = false;
-		}
-
-		int startId = car.getSource().getId();
-		PriorityQueue<Element> priorityQueue = new PriorityQueue<Element>();
-		distance[startId] = 0;
-		priorityQueue.offer(new Element(virtualMap.findVertax(startId), 0));
-
-		while(!priorityQueue.isEmpty()) {
-			int curVertax;
-			do {
-				curVertax = priorityQueue.peek().getIndex().getId();
-				priorityQueue.poll();
-			} while (!priorityQueue.isEmpty() && visited[curVertax]);
-
-			if(visited[curVertax]) break;
-
-			for (Edge edge : virtualMap.getConnectedEdge(car.getSource())) {
-				 int next = edge.getDestination().getId();
-				 int oldDistance = distance[next];
-				 int newDistance = distance[curVertax] + edge.getWeight();
-
-				 if (newDistance < oldDistance) {
-				 	distance[next] = newDistance;
-				 	priorityQueue.offer(new Element(virtualMap.findVertax(next), newDistance));
-				 }
+					v.setMinDistance(distanceThroughU);
+					v.setPrevious(u);
+					vertexQueue.add(v);
+				}
 			}
 		}
-		for (int n : distance) {
-			System.out.print(n + " ");
-		}
-	}
-}
-
-class Element implements Comparable<Element>{
-	private Vertax index;
-	private int distance;
-
-	Element(Vertax index, int distance){
-		this.index = index;
-		this.distance = distance;
 	}
 
-	public Vertax getIndex(){
-		return index;
-	}
+	public static List<Vertex> getShortestPathTo(Vertex target) {
+		List<Vertex> path = new ArrayList<Vertex>();
+		for (Vertex vertex = target; vertex != null; vertex = vertex.getPrevious())
+			path.add(vertex);
 
-	public int getDistance(){
-		return distance;
-	}
-
-	public int compareTo(Element o){
-		return distance <= o.distance ? -1 : 1;
+		Collections.reverse(path);
+		return path;
 	}
 }
