@@ -11,25 +11,23 @@ import java.util.List;
 @Data
 public class Car {
 	private CarState carState;
-	private String driver;
 	private float speed;
 	private int secedeCount;
 	private int locate;
 	private List<Edge> route;
 
 	//경로
-	private Vertax departure;
-	private Vertax arrival;
+	private Vertax source;
+	private Vertax destination;
 
-	public Car(String driver, Vertax departure) {
+	public Car(Vertax departure) {
 		this.carState = CarState.IDLE;
-		this.driver = driver;
 		this.secedeCount = 0;
 		this.speed = (float)(Math.random() * 100) % 20 + 40;
 		this.locate = 0;
 
-		this.departure = departure;
-		this.arrival = null;
+		this.source = departure;
+		this.destination = null;
 		this.route = null;
 
 	}
@@ -38,8 +36,8 @@ public class Car {
 		secedeCount++;
 	}
 
-	public void setArrival(Vertax arrival, ArrayList<Edge> route) {
-		this.arrival = arrival;
+	public void setArrival(Vertax source, ArrayList<Edge> route) {
+		this.source = source;
 		this.route = route;
 		this.carState = CarState.DRIVING;
 	}

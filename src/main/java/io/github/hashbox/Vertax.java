@@ -8,8 +8,10 @@ import lombok.Data;
 @Data
 public class Vertax {
 	private String name;
+	private int id;
 
-	public Vertax(String name) {
+	public Vertax(String name, int id) {
 		this.name = name;
+		this.id = id;
 	}
 }

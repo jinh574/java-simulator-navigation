@@ -11,14 +11,12 @@ public class App {
 
 	public static void main(String[] args) {
 		VirtualMap virtualMap = VirtualMap.getInstance();
-		List<Edge> edges;
 
 		makeMap();
-		edges = virtualMap.getEdges();
-
-		for (Edge edge : edges) {
-			System.out.println(edge);
-		}
+		virtualMap.printEdges();
+		ClientCar clientCar = new ClientCar("한지승", virtualMap.getVertaxes().get(0));
+		clientCar.setDestination(virtualMap.getVertaxes().get(5));
+		Navigation.findRoute(clientCar);
 	}
 
 	public static void makeMap() {
@@ -28,7 +26,7 @@ public class App {
 
 		// 맵만들기
 		for(int i = 1; i <= 10; i++) {
-			vertaxes.add(new Vertax(i+""));
+			vertaxes.add(new Vertax(i+"", i-1));
 		}
 
 		// 1기준
@@ -79,6 +77,6 @@ public class App {
 
 		// 9기준
 
-		virtualMap.setEdges(edges);
+		virtualMap.setInfo(edges, vertaxes);
 	}
 }
