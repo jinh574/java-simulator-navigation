@@ -8,4 +8,8 @@ import lombok.Data;
 @Data
 public class Vertax {
 	private String name;
+
+	public Vertax(String name) {
+		this.name = name;
+	}
 }

@@ -23,4 +23,15 @@ public class Edge {
 		// TODO 차량 대수에 따른 가중치 계산 후 리턴하도록 구현
 		return weight;
 	}
+
+	@Override
+	public String toString() {
+		return "Edge{" +
+				"source=" + source.getName() +
+				", destination=" + destination.getName() +
+				", weight=" + weight +
+				", currentCarCount=" + currentCarCount +
+				", predictCarCount=" + predictCarCount +
+				'}';
+	}
 }

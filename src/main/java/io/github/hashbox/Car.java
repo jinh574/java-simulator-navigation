@@ -3,7 +3,7 @@ package io.github.hashbox;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Queue;
+import java.util.List;
 
 /**
  * Created by js on 2017. 5. 19..
@@ -15,7 +15,7 @@ public class Car {
 	private float speed;
 	private int secedeCount;
 	private int locate;
-	private ArrayList<Edge> route;
+	private List<Edge> route;
 
 	//경로
 	private Vertax departure;
