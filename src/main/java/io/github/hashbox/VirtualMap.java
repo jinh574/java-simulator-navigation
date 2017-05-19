@@ -31,10 +31,9 @@ public class VirtualMap {
 	private void makeMap() {
 		List<Vertex> vertexes = new ArrayList<Vertex>();
 		List<Edge> edges = new ArrayList<Edge>();
-		VirtualMap virtualMap = VirtualMap.getInstance();
 
 		// 맵만들기
-		for(int i = 0; i <= 9; i++) {
+		for(int i = 0; i < 9; i++) {
 			vertexes.add(new Vertex(i + ""));
 		}
 
@@ -125,5 +124,21 @@ public class VirtualMap {
 		);
 
 		setVertexes(vertexes);
+	}
+
+	public void printInfo() {
+		for (Vertex v : vertexes) {
+			System.out.println(v);
+			for (Edge e : v.getAdjacencies()) {
+				System.out.println("\t" + e.toString());
+			}
+		}
+	}
+
+	public void resetVertex() {
+		for (Vertex v : vertexes) {
+			v.setMinDistance(Double.POSITIVE_INFINITY);
+			v.setPrevious(null);
+		}
 	}
 }

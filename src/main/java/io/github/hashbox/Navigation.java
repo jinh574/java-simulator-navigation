@@ -25,20 +25,23 @@ public class Navigation {
 				if (distanceThroughU < v.getMinDistance()) {
 					vertexQueue.remove(v);
 
+					v.setCurrentDistance(weight);
 					v.setMinDistance(distanceThroughU);
 					v.setPrevious(u);
+					v.setCurrentEdge(e);
 					vertexQueue.add(v);
 				}
 			}
 		}
 	}
 
-	public static List<Vertex> getShortestPathTo(Vertex target) {
+	public static List<Vertex> getShortestPathTo(Vertex target) throws CloneNotSupportedException {
 		List<Vertex> path = new ArrayList<Vertex>();
 		for (Vertex vertex = target; vertex != null; vertex = vertex.getPrevious())
-			path.add(vertex);
+			path.add((Vertex)vertex.clone());
 
 		Collections.reverse(path);
+
 		return path;
 	}
 }

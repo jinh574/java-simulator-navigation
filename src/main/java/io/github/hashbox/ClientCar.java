@@ -7,7 +7,11 @@ public class ClientCar extends Car {
 	private String driver;
 
 	public ClientCar(String driver, Vertex departure) {
-		super(departure);
+		super(driver, departure);
 		this.driver = driver;
+	}
+
+	public boolean nextLocated() {
+		return super.nextLocated();
 	}
 }

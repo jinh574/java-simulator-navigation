@@ -18,4 +18,25 @@ class Edge {
 		this.nCurrentCar = 0;
 		this.nPredictCar = 0;
 	}
+
+	public double getWeight() {
+		return weight + nCurrentCar*20 + nPredictCar*10;
+	}
+
+	synchronized public void upCurrentCar() {
+		nCurrentCar++;
+	}
+
+	synchronized public void downCurrentCar() {
+		nCurrentCar--;
+	}
+
+	synchronized public void upPredictCar() {
+		nPredictCar++;
+	}
+
+	synchronized public void downPredictCar() {
+		nPredictCar--;
+	}
+
 }
