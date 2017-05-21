@@ -8,19 +8,21 @@ import java.util.List;
  */
 public class Simulator extends Thread {
 	private final int MAX_SIMULATTE_CAR;
-//	private final float PROBABILITY_OF_ACCIDENT;
+	private static final int UPDATE_TIME_MILLISECOND = 1000;
+	private static final int CREATE_VIRTUAL_CAR_TIME_MILLISECOND = 100;
+	private SimulatorGUI simulatorGUI;
+	
+	//private final float PROBABILITY_OF_ACCIDENT;
 	private List<Car> virtualCars;
 	private VirtualMap virtualMap;
 	private int count;
 
-	ConsoleGUI consoleGUI;
 	public Simulator(int maxSimulateCar) {
 		this.MAX_SIMULATTE_CAR = maxSimulateCar;
 
 		virtualCars = new ArrayList<Car>(MAX_SIMULATTE_CAR);
 		virtualMap = VirtualMap.getInstance();
 		count = 0;
-		consoleGUI = new ConsoleGUI();
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class Simulator extends Thread {
 						car.setArrival(virtualMap.getVertexes().get((int)(Math.random()*10)%8));
 						virtualCars.add(car);
 					}
-					Thread.sleep(100);
+					Thread.sleep(CREATE_VIRTUAL_CAR_TIME_MILLISECOND);
 				} catch (CloneNotSupportedException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
@@ -60,10 +62,11 @@ public class Simulator extends Thread {
 						}
 					}
 					virtualCars.removeAll(removeList);
-					consoleGUI.setConsoleText(virtualCars);
+					simulatorGUI = SimulatorGUI.getInstance();
+					simulatorGUI.setConsoleText(virtualCars);
 				}
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(UPDATE_TIME_MILLISECOND);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

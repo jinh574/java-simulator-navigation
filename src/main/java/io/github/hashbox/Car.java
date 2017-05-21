@@ -16,7 +16,7 @@ public class Car {
 	private int secedeCount;
 	private int locate;
 	private List<Vertex> route;
-	private String console;
+	private double distance;
 
 	//경로
 	private Vertex source;
@@ -74,7 +74,7 @@ public class Car {
 			}
 			else {
 				Vertex target = route.get(1);
-				double distance = target.getCurrentDistance();
+				distance = target.getCurrentDistance();
 				locate += speed;
 				if (distance < locate && carState == CarState.DRIVING) {
 					source = target;
@@ -94,7 +94,6 @@ public class Car {
 					}
 				} else {
 					distance = route.get(1).getCurrentDistance();
-					console = (name + "\t" + locate + "\t" + distance + "\t" + target.getCurrentEdge() + "\t" + route);
 				}
 				return true;
 			}
@@ -110,8 +109,16 @@ public class Car {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return console + "<br>";
+	public String getLocatedToString() {
+		String result = "??";
+		synchronized (route) {
+			if(route.size() == 1) {
+				result = route.get(0).getName() + "을(를) 도착";
+			}
+			else {
+				result = route.get(0).getName() + "->" + route.get(1);
+			}
+		}
+		return result;
 	}
 }
