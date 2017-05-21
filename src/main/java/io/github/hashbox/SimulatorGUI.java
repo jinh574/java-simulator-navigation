@@ -11,8 +11,11 @@ public class SimulatorGUI extends JFrame {
 	private static SimulatorGUI instance;
 	private JLabel nVirutalCarLabel;
 	private JTable virtualList;
+	private JTable edgeInfo;
 	private ImageIcon mapImage;
 	private SimulatorConsoleModel simulatorConsoleModel;
+	private SimulatorEdgeMoel simulatorEdgeMoel;
+	private VirtualMap virtualMap;
 
 	public static SimulatorGUI getInstance() {
 		if(instance == null) {
@@ -22,40 +25,62 @@ public class SimulatorGUI extends JFrame {
 	}
 
 	private SimulatorGUI() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		virtualMap = VirtualMap.getInstance();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Simulator");
 
 		setLayout(new BorderLayout(10, 10));
 
-		JPanel panelLeft = new JPanel();
-		JPanel panelRight = new JPanel();
+		JPanel mapPanel = new JPanel();
+		JPanel consolePanel = new JPanel();
+		JPanel infoPanel = new JPanel();
 
 		// Panel Conf
-		panelRight.setLayout(new BorderLayout());
+		consolePanel.setLayout(new BorderLayout());
 
-		// West
+		// Center
 		mapImage = new ImageIcon("simulation-map.png");
-		panelLeft.add(new JLabel(mapImage));
+		mapPanel.add(new JLabel(mapImage));
 
-		// Right
+		// East
+		simulatorEdgeMoel = new SimulatorEdgeMoel(virtualMap.getEdges());
+		edgeInfo = new JTable(simulatorEdgeMoel);
+		infoPanel.add(new JScrollPane(edgeInfo));
+
+		// South
 		nVirutalCarLabel = new JLabel("시뮬레이션 차량 대수 : 0");
 		simulatorConsoleModel = new SimulatorConsoleModel(null);
 		virtualList = new JTable(simulatorConsoleModel);
 
-		panelRight.add(nVirutalCarLabel, BorderLayout.NORTH);
-		panelRight.add(new JScrollPane(virtualList), BorderLayout.CENTER);
+		//Table Conf
+		virtualList.getColumnModel().getColumn(0).setPreferredWidth(30);
+		virtualList.getColumnModel().getColumn(1).setPreferredWidth(200);
+		virtualList.getColumnModel().getColumn(2).setPreferredWidth(80);
+		virtualList.getColumnModel().getColumn(3).setPreferredWidth(300);
 
-		add(panelLeft, BorderLayout.CENTER);
-		add(panelRight, BorderLayout.EAST);
+		edgeInfo.getColumnModel().getColumn(0).setPreferredWidth(180);
+		edgeInfo.getColumnModel().getColumn(1).setPreferredWidth(80);
+		edgeInfo.getColumnModel().getColumn(2).setPreferredWidth(80);
+		edgeInfo.getColumnModel().getColumn(3).setPreferredWidth(150);
+
+
+		consolePanel.add(nVirutalCarLabel, BorderLayout.NORTH);
+		consolePanel.add(new JScrollPane(virtualList), BorderLayout.CENTER);
+
+		add(mapPanel, BorderLayout.CENTER);
+		add(consolePanel, BorderLayout.SOUTH);
+		add(infoPanel, BorderLayout.EAST);
 
 		pack();
 		setVisible(true);
 	}
 
 	public void setConsoleText(List<Car> cars) {
+		//Table Conf
 		nVirutalCarLabel.setText("시뮬레이션 차량 대수 : " + cars.size());
 		simulatorConsoleModel.setConsoleList(cars);
 		simulatorConsoleModel.fireTableDataChanged();
+		simulatorEdgeMoel.fireTableDataChanged();
 	}
 }

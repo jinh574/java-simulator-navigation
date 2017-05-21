@@ -32,8 +32,8 @@ public class Simulator extends Thread {
 				try {
 					synchronized (virtualCars){
 						virtualMap.resetVertex();
-						Car car = new ClientCar("Virtual" + count++, virtualMap.getVertexes().get((int)(Math.random()*10)%8));
-						car.setArrival(virtualMap.getVertexes().get((int)(Math.random()*10)%8));
+						Car car = new ClientCar("V" + count++, virtualMap.getVertexes().get((int)(Math.random()*100)%15));
+						car.setArrival(virtualMap.getVertexes().get((int)(Math.random()*100)%15));
 						virtualCars.add(car);
 					}
 					Thread.sleep(CREATE_VIRTUAL_CAR_TIME_MILLISECOND);

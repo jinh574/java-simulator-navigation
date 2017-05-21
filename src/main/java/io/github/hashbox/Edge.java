@@ -7,10 +7,14 @@ import lombok.Data;
  */
 @Data
 class Edge {
+	private static final int CURRENT_CAR_WEIGHT = 20;
+	private static final int PREDICT_CAR_WEIGHT = 10;
+
 	private final Vertex target;
 	private double weight;
 	private int nCurrentCar;
 	private int nPredictCar;
+	private Vertex source;
 
 	public Edge(Vertex argTarget, double argWeight) {
 		this.target = argTarget;
@@ -20,7 +24,16 @@ class Edge {
 	}
 
 	public double getWeight() {
-		return weight + nCurrentCar*20 + nPredictCar*10;
+		return weight + nCurrentCar*CURRENT_CAR_WEIGHT + nPredictCar*PREDICT_CAR_WEIGHT;
+	}
+
+	public double getWeightOriginal() {
+		return weight;
+	}
+
+	@Override
+	public String toString() {
+		return source.getName() + "->" + target.getName();
 	}
 
 	synchronized public void upCurrentCar() {

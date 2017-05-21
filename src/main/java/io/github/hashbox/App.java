@@ -13,7 +13,5 @@ public class App {
 
 		simulator.start();
 		simulator.updateLocate();
-
-		simulatorGUI = SimulatorGUI.getInstance();
 	}
 }

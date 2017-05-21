@@ -6,33 +6,33 @@ import java.util.List;
 /**
  * Created by js on 2017. 5. 21..
  */
-public class SimulatorConsoleModel extends AbstractTableModel {
-	private List<Car> consoleList;
+public class SimulatorEdgeMoel extends AbstractTableModel {
+	private List<Edge> edgeList;
 
-	public void setConsoleList(List<Car> consoleList) {
-		this.consoleList = consoleList;
+	public void setEdgeList(List<Edge> edgeList) {
+		this.edgeList = edgeList;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Car car = consoleList.get(rowIndex);
+		Edge edge = edgeList.get(rowIndex);
 		Object val = null;
-		if(consoleList == null) {
+		if(edgeList == null) {
 			val = "??";
 		}
 		else {
 			switch (columnIndex) {
 				case 0:
-					val = car.getName();
+					val = edge.toString();
 					break;
 				case 1:
-					val = car.getLocatedToString() + "(" + car.getLocate() + "/" + (int)car.getDistance() + ")";
+					val = edge.getNCurrentCar();
 					break;
 				case 2:
-					val = car.getDestination().getName();
+					val = edge.getNPredictCar();
 					break;
 				case 3:
-					val = car.getRoute().toString();
+					val = edge.getWeightOriginal()+ "(+" + (edge.getWeight()-edge.getWeightOriginal()) + ")";
 			}
 		}
 		return val;
@@ -50,16 +50,16 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 		String name = "??";
 		switch (column) {
 			case 0:
-				name = "차량이름";
+				name = "도로";
 				break;
 			case 1:
-				name = "현재위치";
+				name = "현재 차량대수";
 				break;
 			case 2:
-				name = "목적지";
+				name = "예상 차량대수";
 				break;
 			case 3:
-				name = "남은 경로";
+				name = "가중치";
 				break;
 		}
 
@@ -74,13 +74,13 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		int result = 0;
-		if(consoleList != null) {
-			result = consoleList.size();
+		if(edgeList != null) {
+			result = edgeList.size();
 		}
 		return result;
 	}
 
-	public SimulatorConsoleModel(List<Car> consoleList) {
-		this.consoleList = consoleList;
+	public SimulatorEdgeMoel(List<Edge> edgeList) {
+		this.edgeList = edgeList;
 	}
 }
