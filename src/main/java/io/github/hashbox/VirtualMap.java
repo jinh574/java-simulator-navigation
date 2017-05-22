@@ -3,7 +3,6 @@ package io.github.hashbox;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,21 +33,21 @@ public class VirtualMap {
 		List<Edge> edges = new ArrayList<Edge>();
 
 		// 맵만들기
-		vertexes.add(new Vertex("성동교사거리"));
-		vertexes.add(new Vertex("뚝섬역사거리"));
-		vertexes.add(new Vertex("서울숲입구"));
-		vertexes.add(new Vertex("상원삼거리"));
-		vertexes.add(new Vertex("경동초입구"));
-		vertexes.add(new Vertex("경일초입구"));
-		vertexes.add(new Vertex("치과의사협회앞"));
-		vertexes.add(new Vertex("성수역사거리"));
-		vertexes.add(new Vertex("뚝도시장입구"));
-		vertexes.add(new Vertex("화양사거리"));
-		vertexes.add(new Vertex("성수사거리"));
-		vertexes.add(new Vertex("영동대교고가밑"));
-		vertexes.add(new Vertex("어린이대공원앞"));
-		vertexes.add(new Vertex("건대입구"));
-		vertexes.add(new Vertex("신양초교앞"));
+		vertexes.add(new Vertex("성동교사거리", 27, 20));
+		vertexes.add(new Vertex("뚝섬역사거리", 35, 115));
+		vertexes.add(new Vertex("서울숲입구", 30, 287));
+		vertexes.add(new Vertex("상원삼거리", 205, 40));
+		vertexes.add(new Vertex("경동초입구", 165, 165));
+		vertexes.add(new Vertex("경일초입구", 114, 322));
+		vertexes.add(new Vertex("치과의사협회앞", 340, 100));
+		vertexes.add(new Vertex("성수역사거리", 312, 223));
+		vertexes.add(new Vertex("뚝도시장입구", 264, 371));
+		vertexes.add(new Vertex("화양사거리", 543, 110));
+		vertexes.add(new Vertex("성수사거리", 465, 280));
+		vertexes.add(new Vertex("영동대교고가밑", 400, 420));
+		vertexes.add(new Vertex("어린이대공원앞", 690, 140));
+		vertexes.add(new Vertex("건대입구", 613, 342));
+		vertexes.add(new Vertex("신양초교앞", 563, 473));
 
 		nVertex = vertexes.size();
 
@@ -211,5 +210,24 @@ public class VirtualMap {
 			v.setMinDistance(Double.POSITIVE_INFINITY);
 			v.setPrevious(null);
 		}
+	}
+
+	public int findVertextByName(String name) {
+		Vertex result = null;
+		for (Vertex v : vertexes) {
+			if(v.getName().equals(name)) {
+				result = v;
+			}
+		}
+		return vertexes.indexOf(result);
+	}
+
+	public String[] makeComboboxString() {
+		String[] result = new String[vertexes.size()];
+		for (int i = 0; i < vertexes.size(); i++) {
+			result[i] = vertexes.get(i).toString();
+		}
+
+		return result;
 	}
 }

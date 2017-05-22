@@ -29,10 +29,19 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 					val = car.getLocatedToString() + "(" + car.getLocate() + "/" + (int)car.getDistance() + ")";
 					break;
 				case 2:
-					val = car.getDestination().getName();
+					if (car.getDestination() != null) {
+						val = car.getDestination().getName();
+					} else {
+						val = "목적지 없음";
+					}
 					break;
 				case 3:
-					val = car.getRoute().toString();
+					if (car.getRoute() != null) {
+						val = car.getRoute().toString();
+					}
+					else {
+						val = "경로 없음";
+					}
 			}
 		}
 		return val;
@@ -78,6 +87,10 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 			result = consoleList.size();
 		}
 		return result;
+	}
+
+	public List<Car> getConsoleList() {
+		return consoleList;
 	}
 
 	public SimulatorConsoleModel(List<Car> consoleList) {

@@ -17,26 +17,33 @@ public class Car {
 	private int locate;
 	private List<Vertex> route;
 	private double distance;
+	private boolean isClient;
 
 	//경로
 	private Vertex source;
 	private Vertex destination;
 
-	public Car(String name, Vertex departure) {
+	public Car(String name, Vertex departure, boolean isClient) {
 		this.name = name;
-		this.carState = CarState.IDLE;
 		this.secedeCount = 0;
 		this.speed = (float)(Math.random() * 100) % 20 + 40;
-		this.locate = 0;
 
-		this.source = departure;
-		this.destination = null;
-		this.route = null;
-		Navigation.computePaths(this.source);
+		setDeparture(departure, isClient);
 	}
 
 	public void secede() {
 		secedeCount++;
+	}
+
+	public void setDeparture(Vertex source, boolean isClient) {
+		this.carState = CarState.IDLE;
+		this.locate = 0;
+		this.isClient = isClient;
+
+		this.source = source;
+		this.destination = null;
+		this.route = null;
+		Navigation.computePaths(source);
 	}
 
 	public void setArrival(Vertex destination) throws CloneNotSupportedException {
@@ -64,12 +71,7 @@ public class Car {
 		if(route != null && !route.isEmpty()) {
 			reCalcRoute();
 			if(route.size() == 1) {
-				carState = CarState.ARRIVE;
-				locate = 0;
-				source = route.get(0);
-				Navigation.computePaths(this.source);
-				destination = null;
-				route = null;
+				setDeparture(route.get(0), isClient);
 				return false;
 			}
 			else {
@@ -111,13 +113,17 @@ public class Car {
 
 	public String getLocatedToString() {
 		String result = "??";
-		synchronized (route) {
-			if(route.size() == 1) {
-				result = route.get(0).getName() + "을(를) 도착";
+		if(route != null) {
+			synchronized (route) {
+				if (route.size() == 1) {
+					result = route.get(0).getName() + "을(를) 도착";
+				} else {
+					result = route.get(0).getName() + "->" + route.get(1);
+				}
 			}
-			else {
-				result = route.get(0).getName() + "->" + route.get(1);
-			}
+		}
+		else {
+			result = source.getName();
 		}
 		return result;
 	}
