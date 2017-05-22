@@ -13,10 +13,14 @@ class Vertex implements Comparable<Vertex>, Cloneable {
 	private double currentDistance;
 	private Edge currentEdge;
 	private Vertex previous;
+	private int xLocated;
+	private int yLocated;
 
-	public Vertex(String argName) {
-		name = argName;
-		currentEdge = null;
+	public Vertex(String argName, int x, int y) {
+		this.name = argName;
+		this.xLocated = x;
+		this.yLocated = y;
+		this.currentEdge = null;
 	}
 
 	public String toString() {
