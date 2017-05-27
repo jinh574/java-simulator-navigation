@@ -10,7 +10,7 @@ public class Simulator extends Thread {
 	private final int MAX_SIMULATTE_CAR;
 	private static final int MAX_CLIENT_CAR = 10;
 	private static final int UPDATE_TIME_MILLISECOND = 1000;
-	private static final int CREATE_VIRTUAL_CAR_TIME_MILLISECOND = 20000;
+	private static final int CREATE_VIRTUAL_CAR_TIME_MILLISECOND = 4000;
 	private SimulatorGUI simulatorGUI;
 	
 	//private final float PROBABILITY_OF_ACCIDENT;

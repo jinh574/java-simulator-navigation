@@ -53,7 +53,6 @@ public class SimulatorGUI extends JFrame {
 		nClient = 0;
 
 		JLayeredPane mapPanel = new JLayeredPane();
-//		JPanel mapPanel = new JPanel();
 		JPanel consolePanel = new JPanel();
 		JPanel infoPanel = new JPanel();
 		JPanel clientPanel = new JPanel();
@@ -88,7 +87,7 @@ public class SimulatorGUI extends JFrame {
 		clientPanel.add(createClientButton, BorderLayout.SOUTH);
 		clientPanel.add(new JScrollPane(clientInfo), BorderLayout.CENTER);
 		infoPanel.add(new JScrollPane(edgeInfo), BorderLayout.NORTH);
-		infoPanel.add(clientPanel, BorderLayout.CENTER);
+		//infoPanel.add(clientPanel, BorderLayout.CENTER);
 
 		// South
 		nVirutalCarLabel = new JLabel("시뮬레이션 차량 대수 : 0");
@@ -109,6 +108,7 @@ public class SimulatorGUI extends JFrame {
 
 		consolePanel.add(nVirutalCarLabel, BorderLayout.NORTH);
 		consolePanel.add(new JScrollPane(virtualList), BorderLayout.CENTER);
+		consolePanel.add(clientPanel, BorderLayout.EAST);
 
 		add(mapPanel, BorderLayout.CENTER);
 		add(consolePanel, BorderLayout.SOUTH);
@@ -145,7 +145,7 @@ public class SimulatorGUI extends JFrame {
 	public void setConsoleText(List<Car> allCars, List<Car> clientCars) {
 		//Table Conf
 		nVirutalCarLabel.setText("시뮬레이션 차량 대수 : " + allCars.size());
-
+		
 		if(simulatorConsoleModel.getConsoleList() == null) {
 			simulatorConsoleModel.setConsoleList(allCars);
 		}
