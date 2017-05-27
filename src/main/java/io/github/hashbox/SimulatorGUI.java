@@ -71,7 +71,7 @@ public class SimulatorGUI extends JFrame {
 		mapPanel.setPreferredSize(new Dimension(980, 660));
 
 		// Center
-		mapImage = new ImageIcon("simulation-map.png");
+		mapImage = new ImageIcon(getClass().getClassLoader().getResource("simulation-map.png"));
 		JLabel mapLabel = new JLabel(mapImage);
 		mapLabel.setBounds(15, 15, 950, 620);
 		mapPanel.add(mapLabel, 1);
@@ -310,7 +310,7 @@ public class SimulatorGUI extends JFrame {
 				destination = destinationCombo.getSelectedIndex();
 				name = nameField.getText();
 
-				if(name == null || source == destination) {
+				if(name == "" || source == destination) {
 					setVisible(true);
 				}
 				else {

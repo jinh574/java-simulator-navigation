@@ -10,7 +10,7 @@ public class Simulator extends Thread {
 	private final int MAX_SIMULATTE_CAR;
 	private static final int MAX_CLIENT_CAR = 10;
 	private static final int UPDATE_TIME_MILLISECOND = 1000;
-	private static final int CREATE_VIRTUAL_CAR_TIME_MILLISECOND = 100;
+	private static final int CREATE_VIRTUAL_CAR_TIME_MILLISECOND = 20000;
 	private SimulatorGUI simulatorGUI;
 	
 	//private final float PROBABILITY_OF_ACCIDENT;
@@ -75,6 +75,20 @@ public class Simulator extends Thread {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				if(virtualCars.size() >= 150 && (int)(Math.random() * 10) == 5) {
+					int randomSelect = (int)(Math.random() * 100) % 15;
+					if (randomSelect % 2 == 0) { // 사고 발생
+						virtualMap.getEdges().get(randomSelect).setAccident((int)(Math.random()*1000) % 200 + 400);
+					}
+					else { // 사고 발생 해제
+						for (Edge edge : virtualMap.getEdges()) {
+							if(edge.getAccident() != 0) {
+								edge.setAccident(0);
+								break;
+							}
+						}
+					}
+				}
 			}
 		}).start();
 	}
@@ -90,6 +104,7 @@ public class Simulator extends Thread {
 	}
 
 	public void addClient(Car car) {
+		//TODO 기존 클리언트 추가할 때 함수 구현 필요(상의 필요)
 		synchronized (virtualCars) {
 			virtualCars.add(car);
 		}

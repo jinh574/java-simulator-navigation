@@ -14,6 +14,8 @@ class Edge {
 	private double weight;
 	private int nCurrentCar;
 	private int nPredictCar;
+	private int accident;
+	private int accidentCount;
 	private Vertex source;
 
 	public Edge(Vertex argTarget, double argWeight) {
@@ -21,10 +23,11 @@ class Edge {
 		this.weight = argWeight;
 		this.nCurrentCar = 0;
 		this.nPredictCar = 0;
+		this.accident = 0;
 	}
 
 	public double getWeight() {
-		return weight + nCurrentCar*CURRENT_CAR_WEIGHT + nPredictCar*PREDICT_CAR_WEIGHT;
+		return weight + nCurrentCar*CURRENT_CAR_WEIGHT + nPredictCar*PREDICT_CAR_WEIGHT + accident;
 	}
 
 	public double getWeightOriginal() {

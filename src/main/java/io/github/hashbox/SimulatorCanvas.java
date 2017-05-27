@@ -14,7 +14,6 @@ public class SimulatorCanvas extends JPanel {
 
 
 	public SimulatorCanvas() {
-
 		setOpaque(false);
 		setBounds(15,15,950,620);
 	}
@@ -41,13 +40,23 @@ public class SimulatorCanvas extends JPanel {
 					if (car.isClient()) {
 						g2d.setColor(Color.RED);
 						g2d.drawString(car.getName(), resultX - 10, resultY + 30);
-						g2d.drawOval(resultX, resultY, 10, 10);
+						g2d.fillOval(resultX, resultY, 10, 10);
 					} else {
 						g2d.setColor(Color.BLACK);
 						g2d.drawOval(resultX, resultY, 4, 4);
 					}
-
 				}
+			}
+		}
+		VirtualMap virtualMap = VirtualMap.getInstance();
+		for (Edge edge : virtualMap.getEdges()) {
+			if(edge.getAccident() != 0) {
+				int resultX = (edge.getSource().getXLocated() + edge.getTarget().getXLocated())/2;
+				int resultY = (edge.getSource().getYLocated() + edge.getTarget().getYLocated())/2;
+				g2d.setColor(Color.RED);
+				g2d.drawString("X", resultX, resultY);
+				g2d.drawString("사고", resultX - 10, resultY + 15);
+
 			}
 		}
 	}

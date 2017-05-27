@@ -32,7 +32,7 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 					if (car.getDestination() != null) {
 						val = car.getDestination().getName();
 					} else {
-						val = "목적지 없음";
+						val = "목적지 도착(" + secondToString((((ClientCar)car).getnTime()*5)) + ")";
 					}
 					break;
 				case 3:
@@ -45,6 +45,12 @@ public class SimulatorConsoleModel extends AbstractTableModel {
 			}
 		}
 		return val;
+	}
+
+	public String secondToString(int second) {
+		int minute = second / 60;
+		second = second % 60;
+		return minute + "분 " + second + "초";
 	}
 
 	@Override
