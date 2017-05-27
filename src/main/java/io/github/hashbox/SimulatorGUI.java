@@ -145,7 +145,7 @@ public class SimulatorGUI extends JFrame {
 	public void setConsoleText(List<Car> allCars, List<Car> clientCars) {
 		//Table Conf
 		nVirutalCarLabel.setText("시뮬레이션 차량 대수 : " + allCars.size());
-		
+
 		if(simulatorConsoleModel.getConsoleList() == null) {
 			simulatorConsoleModel.setConsoleList(allCars);
 		}
