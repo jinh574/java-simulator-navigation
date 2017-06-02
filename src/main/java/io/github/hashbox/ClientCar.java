@@ -21,10 +21,4 @@ public class ClientCar extends Car {
 	public int getnTime() {
 		return nTime;
 	}
-
-	@Override
-	public void setDeparture(Vertex source, boolean isClient) {
-		this.nTime = 0;
-		super.setDeparture(source, isClient);
-	}
 }
